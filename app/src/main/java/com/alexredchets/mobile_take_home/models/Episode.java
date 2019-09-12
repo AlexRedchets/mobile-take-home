@@ -1,9 +1,12 @@
 
 package com.alexredchets.mobile_take_home.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Episode {
+public class Episode implements Parcelable {
 
     private String airDate;
     private List<String> characters;
@@ -12,6 +15,31 @@ public class Episode {
     private int id;
     private String name;
     private String url;
+
+    public Episode() {
+    }
+
+    private Episode(Parcel in) {
+        airDate = in.readString();
+        characters = in.createStringArrayList();
+        created = in.readString();
+        episode = in.readString();
+        id = in.readInt();
+        name = in.readString();
+        url = in.readString();
+    }
+
+    public static final Creator<Episode> CREATOR = new Creator<Episode>() {
+        @Override
+        public Episode createFromParcel(Parcel in) {
+            return new Episode(in);
+        }
+
+        @Override
+        public Episode[] newArray(int size) {
+            return new Episode[size];
+        }
+    };
 
     public String getAirDate() {
         return airDate;
@@ -69,4 +97,19 @@ public class Episode {
         this.url = url;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(airDate);
+        parcel.writeStringList(characters);
+        parcel.writeString(created);
+        parcel.writeString(episode);
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(url);
+    }
 }

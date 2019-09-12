@@ -2,6 +2,7 @@ package com.alexredchets.mobile_take_home.episodes;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,9 +11,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.alexredchets.mobile_take_home.ItemClickListener;
 import com.alexredchets.mobile_take_home.R;
+import com.alexredchets.mobile_take_home.characters.CharactersActivity;
 import com.alexredchets.mobile_take_home.models.Episode;
 
 import java.util.List;
+
+import static com.alexredchets.mobile_take_home.Utils.EPISODE_KEY;
 
 public class EpisodesActivity extends AppCompatActivity implements ItemClickListener<Episode> {
 
@@ -43,6 +47,8 @@ public class EpisodesActivity extends AppCompatActivity implements ItemClickList
 
     @Override
     public void onItemClicked(Episode item) {
-
+        Intent intent = new Intent(this, CharactersActivity.class);
+        intent.putExtra(EPISODE_KEY, item);
+        startActivity(intent);
     }
 }
