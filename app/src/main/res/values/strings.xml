@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mobile-take-home</string>
+    <string name="episode_name">%s - %s</string>
 </resources>
