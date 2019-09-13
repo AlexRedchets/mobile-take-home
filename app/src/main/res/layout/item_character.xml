@@ -7,10 +7,9 @@
     android:background="#FFF">
 
     <ImageView
-        android:id="@+id/characterIcon"
+        android:id="@+id/characterStatus"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_char_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -20,9 +19,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginEnd="15dp"
         android:textColor="#000"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/characterIcon"
+        app:layout_constraintStart_toEndOf="@+id/characterStatus"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 

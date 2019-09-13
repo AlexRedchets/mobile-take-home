@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alexredchets.mobile_take_home.ItemClickListener;
@@ -39,9 +40,15 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
         if (character.getStatus().equalsIgnoreCase("Alive")) {
             viewHolder.characterName.setTextColor(
                     ContextCompat.getColor(viewHolder.characterName.getContext(), R.color.text_black));
+            viewHolder.status.setImageDrawable(
+                    viewHolder.characterName.getContext().getDrawable(R.drawable.ic_heart)
+            );
         } else {
             viewHolder.characterName.setTextColor(
                     ContextCompat.getColor(viewHolder.characterName.getContext(), R.color.text_gray));
+            viewHolder.status.setImageDrawable(
+                    viewHolder.characterName.getContext().getDrawable(R.drawable.ic_dead_face)
+            );
         }
         viewHolder.characterName.setText(character.getName());
     }
@@ -59,11 +66,13 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView characterName;
+        ImageView status;
 
         ViewHolder(View view) {
             super(view);
             view.setOnClickListener(this);
             characterName = view.findViewById(R.id.characterName);
+            status = view.findViewById(R.id.characterStatus);
         }
 
         @Override
