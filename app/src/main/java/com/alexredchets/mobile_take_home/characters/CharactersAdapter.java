@@ -9,11 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alexredchets.mobile_take_home.ItemClickListener;
 import com.alexredchets.mobile_take_home.R;
-import com.alexredchets.mobile_take_home.episodes.EpisodesAdapter;
 import com.alexredchets.mobile_take_home.models.Character;
-import com.alexredchets.mobile_take_home.models.Episode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +18,9 @@ import java.util.List;
 public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.ViewHolder> {
 
     private List<Character> characters = new ArrayList<>();
-    ItemClickListener<Character> listener;
+    private CharacterClickListener listener;
 
-    CharactersAdapter(ItemClickListener<Character> listener) {
+    CharactersAdapter(CharacterClickListener listener) {
         this.listener = listener;
     }
 
@@ -58,7 +55,7 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
         return characters.size();
     }
 
-    public void updateAdapter(List<Character> characters) {
+    void updateAdapter(List<Character> characters) {
         this.characters = characters;
         notifyDataSetChanged();
     }
@@ -73,6 +70,14 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
             view.setOnClickListener(this);
             characterName = view.findViewById(R.id.characterName);
             status = view.findViewById(R.id.characterStatus);
+            status.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (characters.get(getAdapterPosition()).getStatus().equalsIgnoreCase("Alive")) {
+                        listener.onStatusClicked(getAdapterPosition());
+                    }
+                }
+            });
         }
 
         @Override

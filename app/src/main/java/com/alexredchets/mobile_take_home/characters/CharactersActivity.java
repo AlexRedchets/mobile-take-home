@@ -1,22 +1,22 @@
 package com.alexredchets.mobile_take_home.characters;
 
-import android.annotation.SuppressLint;
-import android.app.Application;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.alexredchets.mobile_take_home.ItemClickListener;
 import com.alexredchets.mobile_take_home.R;
 import com.alexredchets.mobile_take_home.Utils;
 import com.alexredchets.mobile_take_home.models.Character;
@@ -28,8 +28,9 @@ import java.util.List;
 import static com.alexredchets.mobile_take_home.Utils.CHARACTER_KEY;
 import static com.alexredchets.mobile_take_home.Utils.EPISODE_KEY;
 
-public class CharactersActivity extends AppCompatActivity implements ItemClickListener<Character> {
+public class CharactersActivity extends AppCompatActivity implements CharacterClickListener {
 
+    private List<Character> characterList;
     private CharactersAdapter charactersAdapter;
     private Episode episode;
 
@@ -65,6 +66,7 @@ public class CharactersActivity extends AppCompatActivity implements ItemClickLi
             ConstraintLayout errorLayout = findViewById(R.id.charactersErrorLayout);
             @Override
             public void onChanged(@Nullable List<Character> characters) {
+                characterList = characters;
                 if (characters != null) {
                     errorLayout.setVisibility(View.GONE);
                     charactersAdapter.updateAdapter(characters);
@@ -92,5 +94,23 @@ public class CharactersActivity extends AppCompatActivity implements ItemClickLi
         Intent intent = new Intent(this, PersonaActivity.class);
         intent.putExtra(CHARACTER_KEY, item);
         startActivity(intent);
+    }
+
+    @Override
+    public void onStatusClicked(final int itemPosition) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Kill character")
+                .setMessage("Are you sure you want to kill " + characterList.get(itemPosition).getName() + "?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        characterList.get(itemPosition).setStatus("Dead");
+                        charactersAdapter.updateAdapter(characterList);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+        dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
     }
 }
