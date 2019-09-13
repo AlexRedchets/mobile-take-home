@@ -8,4 +8,6 @@
     <string name="gender"><b>Gender:</b> %s</string>
     <string name="origin"><b>Origin:</b> %s</string>
     <string name="location">Location: %s</string>
+    <string name="kill">Kill character</string>
+    <string name="are_you_sure">Are you sure you want to kill %s?</string>
 </resources>

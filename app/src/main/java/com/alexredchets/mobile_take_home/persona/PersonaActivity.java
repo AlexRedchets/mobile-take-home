@@ -5,18 +5,10 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Shader;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,7 +46,7 @@ public class PersonaActivity extends AppCompatActivity {
                         return (T) new PersonaViewModel(getApplication(), character.getImage());
                     }
                 }).get(PersonaViewModel.class);
-
+        // load image and observe changes
         personaViewModel.getImage().observe(this, new Observer<Bitmap>() {
             @Override
             public void onChanged(@Nullable Bitmap bitmap) {

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.alexredchets.mobile_take_home.ItemClickListener;
 import com.alexredchets.mobile_take_home.R;
@@ -55,7 +54,7 @@ public class EpisodesActivity extends AppCompatActivity implements ItemClickList
                 }
             }
         });
-
+        // observe loading changes
         episodesViewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             final ConstraintLayout progressBar = findViewById(R.id.episodesSpinnerLayout);
             @Override

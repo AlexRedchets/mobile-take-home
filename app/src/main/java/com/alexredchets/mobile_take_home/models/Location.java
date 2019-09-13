@@ -39,7 +39,7 @@ public class Location implements Parcelable {
         dest.writeString(this.url);
     }
 
-    protected Location(Parcel in) {
+    private Location(Parcel in) {
         this.name = in.readString();
         this.url = in.readString();
     }

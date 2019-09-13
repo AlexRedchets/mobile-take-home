@@ -141,7 +141,7 @@ public class Character implements Parcelable {
         dest.writeString(this.url);
     }
 
-    protected Character(Parcel in) {
+    private Character(Parcel in) {
         this.created = in.readString();
         this.episode = in.createStringArrayList();
         this.gender = in.readString();

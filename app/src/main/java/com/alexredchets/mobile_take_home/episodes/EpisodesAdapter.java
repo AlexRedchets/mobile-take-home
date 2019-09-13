@@ -16,7 +16,7 @@ import java.util.List;
 public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.ViewHolder> {
 
     private List<Episode> episodes = new ArrayList<>();
-    ItemClickListener<Episode> listener;
+    private ItemClickListener<Episode> listener;
 
     EpisodesAdapter(ItemClickListener<Episode> listener) {
         this.listener = listener;
@@ -41,7 +41,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.ViewHo
         return episodes.size();
     }
 
-    public void updateAdapter(List<Episode> episodes) {
+    void updateAdapter(List<Episode> episodes) {
         this.episodes = episodes;
         notifyDataSetChanged();
     }

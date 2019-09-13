@@ -13,10 +13,6 @@ import com.alexredchets.mobile_take_home.BuildConfig;
 import com.alexredchets.mobile_take_home.Utils;
 import com.alexredchets.mobile_take_home.models.Episode;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +28,7 @@ public class EpisodesViewModel extends AndroidViewModel {
 
     public EpisodesViewModel(@NonNull Application application) {
         super(application);
-        episodes = new EpisodesLiveData(application);
+        episodes = new EpisodesLiveData();
     }
 
     LiveData<List<Episode>> getEpisodes() {
@@ -44,10 +40,7 @@ public class EpisodesViewModel extends AndroidViewModel {
 
     public class EpisodesLiveData extends LiveData<List<Episode>> {
 
-        EpisodesLiveData(Context context) {
-            if (!Utils.isConnected(context)) {
-
-            }
+        EpisodesLiveData() {
             isItLoading.setValue(true);
             loadEpisodes();
         }
@@ -58,9 +51,7 @@ public class EpisodesViewModel extends AndroidViewModel {
                 @Override
                 protected String doInBackground(Void... voids) {
                     BufferedReader reader = null;
-
                     try {
-
                         URL myUrl = new URL(BuildConfig.BASE_URL + "episode/");
                         HttpURLConnection conn = (HttpURLConnection) myUrl
                                 .openConnection();

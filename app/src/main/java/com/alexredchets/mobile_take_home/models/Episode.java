@@ -91,7 +91,7 @@ public class Episode implements Parcelable {
         dest.writeString(this.url);
     }
 
-    protected Episode(Parcel in) {
+    private Episode(Parcel in) {
         this.airDate = in.readString();
         this.characters = in.createStringArrayList();
         this.created = in.readString();

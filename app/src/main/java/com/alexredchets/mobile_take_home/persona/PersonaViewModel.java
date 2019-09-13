@@ -12,12 +12,12 @@ import android.support.annotation.NonNull;
 import java.io.InputStream;
 import java.net.URL;
 
-public class PersonaViewModel extends AndroidViewModel {
+class PersonaViewModel extends AndroidViewModel {
 
     private ImageLiveData image;
     private String imageUrl;
 
-    public PersonaViewModel(@NonNull Application application, String imageUrl) {
+    PersonaViewModel(@NonNull Application application, String imageUrl) {
         super(application);
         this.imageUrl = imageUrl;
         image = new ImageLiveData();
@@ -29,7 +29,7 @@ public class PersonaViewModel extends AndroidViewModel {
 
     public class ImageLiveData extends LiveData<Bitmap> {
 
-        public ImageLiveData() {
+        ImageLiveData() {
             loadBitmap();
         }
 
@@ -52,9 +52,10 @@ public class PersonaViewModel extends AndroidViewModel {
                 @Override
                 protected void onPostExecute(Bitmap bitmap) {
                     super.onPostExecute(bitmap);
-
                     if (bitmap != null) {
                         setValue(bitmap);
+                    } else {
+                        setValue(null);
                     }
                 }
             }.execute();

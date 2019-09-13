@@ -5,20 +5,12 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 import com.alexredchets.mobile_take_home.BuildConfig;
 import com.alexredchets.mobile_take_home.Utils;
 import com.alexredchets.mobile_take_home.models.Character;
-import com.alexredchets.mobile_take_home.models.Episode;
-import com.alexredchets.mobile_take_home.models.Location;
-import com.alexredchets.mobile_take_home.models.Origin;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +18,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 class CharactersViewModel extends AndroidViewModel {
@@ -63,8 +54,6 @@ class CharactersViewModel extends AndroidViewModel {
                     BufferedReader reader = null;
 
                     try {
-
-
                         URL myUrl = new URL(BuildConfig.BASE_URL + path);
 
                         HttpURLConnection conn = (HttpURLConnection) myUrl

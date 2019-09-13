@@ -75,7 +75,7 @@ public class CharactersActivity extends AppCompatActivity implements CharacterCl
                 }
             }
         });
-
+        // observe loading changes
         charactersViewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             final ConstraintLayout progressBar = findViewById(R.id.charactersSpinnerLayout);
             @Override
@@ -99,8 +99,8 @@ public class CharactersActivity extends AppCompatActivity implements CharacterCl
     @Override
     public void onStatusClicked(final int itemPosition) {
         AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Kill character")
-                .setMessage("Are you sure you want to kill " + characterList.get(itemPosition).getName() + "?")
+                .setTitle(getResources().getString(R.string.kill))
+                .setMessage(getResources().getString(R.string.are_you_sure, characterList.get(itemPosition).getName()))
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         characterList.get(itemPosition).setStatus("Dead");

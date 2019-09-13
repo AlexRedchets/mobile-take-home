@@ -1,13 +1,10 @@
 package com.alexredchets.mobile_take_home;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Shader;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
@@ -117,12 +114,6 @@ public class Utils {
         return null;
     }
 
-    public static Boolean isConnected(Context context) {
-        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
-    }
-
     public static Bitmap getRoundedBitmap(Bitmap bitmap){
         Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
@@ -142,16 +133,12 @@ public class Utils {
                 sb.setSpan(bss, 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 break;
             case STATUS:
+            case GENDER:
+            case ORIGIN:
                 sb.setSpan(bss, 0, 6, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 break;
             case SPECIES:
                 sb.setSpan(bss, 0, 7, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                break;
-            case GENDER:
-                sb.setSpan(bss, 0, 6, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                break;
-            case ORIGIN:
-                sb.setSpan(bss, 0, 6, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 break;
             case LOCATION:
                 sb.setSpan(bss, 0, 8, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
