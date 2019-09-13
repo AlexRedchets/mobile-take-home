@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">mobile-take-home</string>
     <string name="episode_name">%s - %s</string>
+    <string name="network_error">There is a problem connecting to server. Please check your internet connection or try again later.</string>
 </resources>

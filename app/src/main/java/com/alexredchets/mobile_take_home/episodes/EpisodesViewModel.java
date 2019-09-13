@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 import com.alexredchets.mobile_take_home.BuildConfig;
+import com.alexredchets.mobile_take_home.Utils;
 import com.alexredchets.mobile_take_home.models.Episode;
 
 import org.json.JSONArray;
@@ -21,13 +23,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EpisodesViewModel extends AndroidViewModel {
 
     private EpisodesLiveData episodes;
+    private final MutableLiveData<Boolean> isItLoading = new MutableLiveData<>();
 
     public EpisodesViewModel(@NonNull Application application) {
         super(application);
@@ -37,13 +38,17 @@ public class EpisodesViewModel extends AndroidViewModel {
     LiveData<List<Episode>> getEpisodes() {
         return episodes;
     }
+    LiveData<Boolean> getIsLoading() {
+        return isItLoading;
+    }
 
     public class EpisodesLiveData extends LiveData<List<Episode>> {
 
-        private final Context context;
-
         EpisodesLiveData(Context context) {
-            this.context = context;
+            if (!Utils.isConnected(context)) {
+
+            }
+            isItLoading.setValue(true);
             loadEpisodes();
         }
 
@@ -57,7 +62,6 @@ public class EpisodesViewModel extends AndroidViewModel {
                     try {
 
                         URL myUrl = new URL(BuildConfig.BASE_URL + "episode/");
-
                         HttpURLConnection conn = (HttpURLConnection) myUrl
                                 .openConnection();
                         conn.setRequestMethod("GET");
@@ -76,23 +80,18 @@ public class EpisodesViewModel extends AndroidViewModel {
                             return null;
                         }
                         reader = new BufferedReader(new InputStreamReader(inputStream));
-
                         String line;
                         while ((line = reader.readLine()) != null) {
                             buffer.append(line).append("\n");
                         }
-
                         if (buffer.length() == 0) {
                             return null;
                         }
-
                         return buffer.toString();
 
                     } catch (IOException e) {
-
                         e.printStackTrace();
                         return null;
-
                     } finally {
                         if (reader != null) {
                             try {
@@ -107,34 +106,12 @@ public class EpisodesViewModel extends AndroidViewModel {
                 @Override
                 protected void onPostExecute(String s) {
                     super.onPostExecute(s);
-
-                    try {
-                        JSONObject responseObject = new JSONObject(s);
-                        JSONArray episodeArray = responseObject.getJSONArray("results");
-
-                        ArrayList<Episode> episodes = new ArrayList<>();
-
-                        for (int i = 0; i < episodeArray.length(); i++) {
-                            Episode episode = new Episode();
-                            JSONObject objectEpisode = episodeArray.getJSONObject(i);
-                            episode.setId(objectEpisode.getInt("id"));
-                            episode.setName(objectEpisode.getString("name"));
-                            episode.setAirDate(objectEpisode.getString("air_date"));
-                            episode.setEpisode(objectEpisode.getString("episode"));
-                            episode.setUrl(objectEpisode.getString("url"));
-                            episode.setCreated(objectEpisode.getString("created"));
-                            JSONArray charactersArray = objectEpisode.getJSONArray("characters");
-                            String[] characters = new String[charactersArray.length()];
-                            for (int j = 0; j < charactersArray.length(); j ++) {
-                                characters[j] = charactersArray.getString(j);
-                            }
-                            episode.setCharacters(Arrays.asList(characters));
-                            episodes.add(episode);
-                        }
-                        setValue(episodes);
-                    } catch (JSONException e){
-                        e.printStackTrace();
+                    if (s != null) {
+                        setValue(Utils.convertJsonToEpisodeList(s));
+                    } else {
+                        setValue(null);
                     }
+                    isItLoading.setValue(false);
                 }
             }.execute();
         }

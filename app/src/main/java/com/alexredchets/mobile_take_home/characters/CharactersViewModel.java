@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -32,23 +33,25 @@ class CharactersViewModel extends AndroidViewModel {
 
     private CharactersLiveData characters;
     private String path;
+    private final MutableLiveData<Boolean> isItLoading = new MutableLiveData<>();
 
     CharactersViewModel(@NonNull Application application, String path) {
         super(application);
         this.path = path;
-        characters = new CharactersLiveData(application);
+        characters = new CharactersLiveData();
     }
 
     LiveData<List<Character>> getCharacters() {
         return characters;
     }
+    LiveData<Boolean> getIsLoading() {
+        return isItLoading;
+    }
 
     public class CharactersLiveData extends LiveData<List<Character>> {
 
-        private final Context context;
-
-        CharactersLiveData(Context context) {
-            this.context = context;
+        CharactersLiveData() {
+            isItLoading.setValue(true);
             loadCharacters();
         }
 
@@ -95,10 +98,8 @@ class CharactersViewModel extends AndroidViewModel {
                         return buffer.toString();
 
                     } catch (IOException e) {
-
                         e.printStackTrace();
                         return null;
-
                     } finally {
                         if (reader != null) {
                             try {
@@ -113,50 +114,12 @@ class CharactersViewModel extends AndroidViewModel {
                 @Override
                 protected void onPostExecute(String s) {
                     super.onPostExecute(s);
-
-                    try {
-                        JSONArray characterArray = new JSONArray(s);
-
-                        ArrayList<Character> characters = new ArrayList<>();
-
-                        for (int i = 0; i < characterArray.length(); i++) {
-                            Character character = new Character();
-                            // getting main object
-                            JSONObject objectCharacter = characterArray.getJSONObject(i);
-                            character.setId(objectCharacter.getInt("id"));
-                            character.setName(objectCharacter.getString("name"));
-                            character.setStatus(objectCharacter.getString("status"));
-                            character.setSpecies(objectCharacter.getString("species"));
-                            character.setType(objectCharacter.getString("type"));
-                            character.setGender(objectCharacter.getString("gender"));
-                            character.setImage(objectCharacter.getString("image"));
-                            character.setUrl(objectCharacter.getString("url"));
-                            character.setCreated(objectCharacter.getString("created"));
-                            // getting origin object
-                            JSONObject originObject = objectCharacter.getJSONObject("origin");
-                            Origin origin = new Origin();
-                            origin.setName(originObject.getString("name"));
-                            origin.setUrl(originObject.getString("url"));
-                            character.setOrigin(origin);
-                            // getting location object
-                            JSONObject locationObject = objectCharacter.getJSONObject("location");
-                            Location location = new Location();
-                            location.setName(locationObject.getString("name"));
-                            location.setUrl(locationObject.getString("url"));
-                            character.setLocation(location);
-                            // getting episode object
-                            JSONArray episodeArray = objectCharacter.getJSONArray("episode");
-                            List<String> episodes = new ArrayList<>();
-                            for (int j = 0; j < episodeArray.length(); j ++) {
-                                episodes.add(episodeArray.get(j).toString());
-                            }
-                            character.setEpisode(episodes);
-                            characters.add(character);
-                        }
-                        setValue(characters);
-                    } catch (JSONException e){
-                        e.printStackTrace();
+                    if (s != null) {
+                        setValue(Utils.convertJsonToCharacterList(s));
+                    } else {
+                        setValue(null);
                     }
+                    isItLoading.setValue(false);
                 }
             }.execute();
         }

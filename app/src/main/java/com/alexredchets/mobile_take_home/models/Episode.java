@@ -19,28 +19,6 @@ public class Episode implements Parcelable {
     public Episode() {
     }
 
-    private Episode(Parcel in) {
-        airDate = in.readString();
-        characters = in.createStringArrayList();
-        created = in.readString();
-        episode = in.readString();
-        id = in.readInt();
-        name = in.readString();
-        url = in.readString();
-    }
-
-    public static final Creator<Episode> CREATOR = new Creator<Episode>() {
-        @Override
-        public Episode createFromParcel(Parcel in) {
-            return new Episode(in);
-        }
-
-        @Override
-        public Episode[] newArray(int size) {
-            return new Episode[size];
-        }
-    };
-
     public String getAirDate() {
         return airDate;
     }
@@ -103,13 +81,35 @@ public class Episode implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(airDate);
-        parcel.writeStringList(characters);
-        parcel.writeString(created);
-        parcel.writeString(episode);
-        parcel.writeInt(id);
-        parcel.writeString(name);
-        parcel.writeString(url);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.airDate);
+        dest.writeStringList(this.characters);
+        dest.writeString(this.created);
+        dest.writeString(this.episode);
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.url);
     }
+
+    protected Episode(Parcel in) {
+        this.airDate = in.readString();
+        this.characters = in.createStringArrayList();
+        this.created = in.readString();
+        this.episode = in.readString();
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.url = in.readString();
+    }
+
+    public static final Parcelable.Creator<Episode> CREATOR = new Parcelable.Creator<Episode>() {
+        @Override
+        public Episode createFromParcel(Parcel source) {
+            return new Episode(source);
+        }
+
+        @Override
+        public Episode[] newArray(int size) {
+            return new Episode[size];
+        }
+    };
 }

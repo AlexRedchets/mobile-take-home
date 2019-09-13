@@ -4,15 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".characters.CharactersActivity">
+    tools:context=".characters.CharactersActivity"
+    android:background="#FFF">
+
+    <include
+        layout="@layout/layout_spinner"
+        android:id="@+id/charactersSpinnerLayout"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/charactersRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/RVStyle"/>
+
+    <include
+        layout="@layout/layout_error"
+        android:id="@+id/charactersErrorLayout"
+        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>
