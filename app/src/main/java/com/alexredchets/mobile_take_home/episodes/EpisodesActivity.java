@@ -29,7 +29,9 @@ public class EpisodesActivity extends AppCompatActivity implements ItemClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_episodes);
-        getSupportActionBar().setTitle("Episodes");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Episodes");
+        }
 
         // init ViewModel
         EpisodesViewModel episodesViewModel = ViewModelProviders.of(this).get(EpisodesViewModel.class);

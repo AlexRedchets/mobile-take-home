@@ -17,7 +17,7 @@
         android:src="@drawable/ic_confused_emoji"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/personaName"
@@ -25,53 +25,47 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         style="@style/PersonaTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/personaImage"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@+id/personaImage"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/personaStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/PersonaTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/personaName"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@+id/personaImage"
+        app:layout_constraintTop_toBottomOf="@+id/personaName" />
 
     <TextView
         android:id="@+id/personaSpecies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/PersonaTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/personaStatus"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@+id/personaImage"
+        app:layout_constraintTop_toBottomOf="@+id/personaStatus" />
 
     <TextView
         android:id="@+id/personaGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/PersonaTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/personaSpecies"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@+id/personaImage"
+        app:layout_constraintTop_toBottomOf="@+id/personaSpecies" />
 
     <TextView
         android:id="@+id/personaOrigin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/PersonaTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/personaGender"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@+id/personaImage"
+        app:layout_constraintTop_toBottomOf="@+id/personaGender" />
 
     <TextView
         android:id="@+id/personaLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/PersonaTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/personaOrigin"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@+id/personaImage"
+        app:layout_constraintTop_toBottomOf="@+id/personaOrigin" />
 
 </android.support.constraint.ConstraintLayout>

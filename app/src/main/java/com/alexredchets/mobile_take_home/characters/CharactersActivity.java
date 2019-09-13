@@ -37,6 +37,9 @@ public class CharactersActivity extends AppCompatActivity implements ItemClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_characters);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Characters");
+        }
 
         episode = getIntent().getParcelableExtra(EPISODE_KEY);
 

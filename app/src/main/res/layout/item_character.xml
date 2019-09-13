@@ -24,6 +24,6 @@
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/characterIcon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

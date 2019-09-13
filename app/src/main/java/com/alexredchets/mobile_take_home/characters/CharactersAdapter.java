@@ -1,6 +1,7 @@
 package com.alexredchets.mobile_take_home.characters;
 
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,13 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Character character = characters.get(position);
+        if (character.getStatus().equalsIgnoreCase("Alive")) {
+            viewHolder.characterName.setTextColor(
+                    ContextCompat.getColor(viewHolder.characterName.getContext(), R.color.text_black));
+        } else {
+            viewHolder.characterName.setTextColor(
+                    ContextCompat.getColor(viewHolder.characterName.getContext(), R.color.text_gray));
+        }
         viewHolder.characterName.setText(character.getName());
     }
 
