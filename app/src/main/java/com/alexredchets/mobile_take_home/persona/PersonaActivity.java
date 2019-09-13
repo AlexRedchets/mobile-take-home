@@ -13,6 +13,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,11 +70,17 @@ public class PersonaActivity extends AppCompatActivity {
         TextView gender = findViewById(R.id.personaGender);
         TextView origin = findViewById(R.id.personaOrigin);
         TextView location = findViewById(R.id.personaLocation);
-        name.setText(getResources().getString(R.string.name, character.getName()));
-        status.setText(getResources().getString(R.string.status, character.getStatus()));
-        species.setText(getResources().getString(R.string.species, character.getSpecies()));
-        gender.setText(getResources().getString(R.string.gender, character.getGender()));
-        origin.setText(getResources().getString(R.string.origin, character.getOrigin().getName()));
-        location.setText(getResources().getString(R.string.location, character.getLocation().getName()));
+        name.setText(Utils.setBold(
+                getResources().getString(R.string.name, character.getName()), Utils.CharacterInfo.NAME));
+        status.setText(Utils.setBold(
+                getResources().getString(R.string.status, character.getStatus()), Utils.CharacterInfo.STATUS));
+        species.setText(Utils.setBold(
+                getResources().getString(R.string.species, character.getSpecies()), Utils.CharacterInfo.SPECIES));
+        gender.setText(Utils.setBold(
+                getResources().getString(R.string.gender, character.getGender()), Utils.CharacterInfo.GENDER));
+        origin.setText(Utils.setBold(
+                getResources().getString(R.string.origin, character.getOrigin().getName()), Utils.CharacterInfo.ORIGIN));
+        location.setText(Utils.setBold(
+                getString(R.string.location, character.getLocation().getName()), Utils.CharacterInfo.LOCATION));
     }
 }

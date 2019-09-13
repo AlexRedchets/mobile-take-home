@@ -7,5 +7,5 @@
     <string name="species"><b>Species:</b> %s</string>
     <string name="gender"><b>Gender:</b> %s</string>
     <string name="origin"><b>Origin:</b> %s</string>
-    <string name="location"><b>Location:</b> %s</string>
+    <string name="location">Location: %s</string>
 </resources>

@@ -8,6 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 
 import com.alexredchets.mobile_take_home.models.Character;
 import com.alexredchets.mobile_take_home.models.Episode;
@@ -129,5 +132,40 @@ public class Utils {
         Canvas c = new Canvas(circleBitmap);
         c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
         return circleBitmap;
+    }
+
+    public static SpannableStringBuilder setBold(String string, CharacterInfo characterInfo) {
+        SpannableStringBuilder sb = new SpannableStringBuilder(string);
+        StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
+        switch (characterInfo) {
+            case NAME:
+                sb.setSpan(bss, 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                break;
+            case STATUS:
+                sb.setSpan(bss, 0, 6, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                break;
+            case SPECIES:
+                sb.setSpan(bss, 0, 7, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                break;
+            case GENDER:
+                sb.setSpan(bss, 0, 6, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                break;
+            case ORIGIN:
+                sb.setSpan(bss, 0, 6, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                break;
+            case LOCATION:
+                sb.setSpan(bss, 0, 8, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                break;
+        }
+        return sb;
+    }
+
+    public enum CharacterInfo {
+        NAME,
+        STATUS,
+        SPECIES,
+        GENDER,
+        ORIGIN,
+        LOCATION
     }
 }
